@@ -131,7 +131,7 @@ update = function () {
             nowplaying(glob.artist, glob.title, '', ts, 'P', '', glob.total_time, '')
         } else if((ts - glob.start_time) > Math.min(glob.total_time/2, 150)) {
             if(!glob.is_scrobbled) {
-                //scrobble(glob.artist, glob.title, '', glob.start_time, 'P', '', glob.total_time, '')
+                scrobble(glob.artist, glob.title, '', glob.start_time, 'P', '', glob.total_time, '')
                 glob.is_scrobbled = true
             }
         }
