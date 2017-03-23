@@ -2,9 +2,9 @@
 // @name           Google Music Libre.fm Integration
 // @namespace      http://www.zoibot.com/
 // @author         Kevin Brackbill
-// @include        http*://music.google.com/music/listen*
-// @match          http://music.google.com/music/listen*
-// @match          https://music.google.com/music/listen*
+// @include        http*://play.google.com/music/listen*
+// @match          http://play.google.com/music/listen*
+// @match          https://play.google.com/music/listen*
 // @icon           http://i.imgur.com/DJMeBs.jpg
 // @description    Adds Libre.fm scrobbling support to Google Music
 // @grant          GM_getValue
@@ -55,7 +55,7 @@ init = function () {
     if(!user_element) {
         window.setTimeout(init, 1000)
     }
-    var name_element = user_element.getElementsByTagName('gb_b')[0]
+    var name_element = user_element.getElementsByClassName('gb_b')[0]
     glob.header = document.createElement('span')
     var txtEl = document.createElement('span')
     txtEl.addEventListener('click', toggle_settings, false)
