@@ -2,11 +2,14 @@
 // @name           Google Music Libre.fm Integration
 // @namespace      http://www.zoibot.com/
 // @author         Kevin Brackbill
-// @include        http*://music.google.com/music/listen*
-// @match          http://music.google.com/music/listen*
-// @match          https://music.google.com/music/listen*
+// @include        http*://play.google.com/music/listen*
+// @match          http://play.google.com/music/listen*
+// @match          https://play.google.com/music/listen*
 // @icon           http://i.imgur.com/DJMeBs.jpg
 // @description    Adds Libre.fm scrobbling support to Google Music
+// @grant          GM_getValue
+// @grant          GM_setValue
+// @grant          GM_xmlhttpRequest
 // ==/UserScript==
 
 var glob = {
@@ -48,11 +51,11 @@ var request = {
 }
 
 init = function () {
-    var user_element = document.getElementById('guser')
+    var user_element = document.getElementById('material-one-right')
     if(!user_element) {
         window.setTimeout(init, 1000)
     }
-    var name_element = user_element.getElementsByTagName('u')[0]
+    var name_element = user_element.getElementsByClassName('gb_b')[0]
     glob.header = document.createElement('span')
     var txtEl = document.createElement('span')
     txtEl.addEventListener('click', toggle_settings, false)
@@ -114,14 +117,14 @@ connect = function() {
 }
 
 update = function () {
-    var title_el = document.getElementById('playerSongTitle')
+    var title_el = document.getElementById('currently-playing-title')
     if(title_el) {
-        var new_title = title_el.getElementsByTagName('div')[0].textContent
-        var artist_el = document.getElementById('playerArtist')
-        var new_artist = artist_el.getElementsByTagName('div')[0].textContent
+        var new_title = title_el.textContent
+        var artist_el = document.getElementById('player-artist')
+        var new_artist = artist_el.textContent
         var ts = Math.round((new Date()).getTime() / 1000)
-        glob.total_time = get_seconds(document.getElementById('duration').textContent)
-        glob.current_time = get_seconds(document.getElementById('currentTime').textContent)
+        glob.total_time = get_seconds(document.getElementById('time_container_duration').textContent)
+        glob.current_time = get_seconds(document.getElementById('time_container_current').textContent)
         if(new_title != glob.title || new_artist != glob.artist) { 
             //new song
             glob.title = new_title
